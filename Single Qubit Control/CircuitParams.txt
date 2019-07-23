@@ -1,0 +1,5 @@
+DriveCapacitance 3e-9
+TransmonCapacitance 4.21
+CircuitInductance 8e-06
+QubitFrequency 5.0353e9
+Anharmonicity 200e6

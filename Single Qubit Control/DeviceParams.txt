@@ -1,0 +1,5 @@
+LO tal
+LO_rateSample 1e9
+AWG tal
+AWG_rateSample
+AWGssb
