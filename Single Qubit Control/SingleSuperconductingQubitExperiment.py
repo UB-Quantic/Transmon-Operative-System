@@ -16,18 +16,6 @@ class SingleSuperconductingQubitExperiment:
         If True, DRAG pulsing will be used during capacitive coupling. Note
         that in this case, a drag beta callibration (to reduce leakage) will 
         be required, which might take an undesired time
-        
-   #SHOULD READOUT BE DONE SEPARATEDLY OF THE COUPLING? making them in the same
-   function is required for the arm/trig way. If instead coupling and readout 
-   are done in different Labber config files, perhaps dividing drive and readout
-   in two methods is more convenient, such that the external user can directly
-   choose the readout technique used (or not used) directly when called
-   
-    readoutModality : String, default='Tomography'
-        Attribute that will define the readout method carried in each experiment
-        The possible implemented options are:
-            - "Tomography"
-            - ....
     
     Attributes
     ---------
@@ -69,6 +57,14 @@ class SingleSuperconductingQubitExperiment:
     will read them? Ideally, if this is to be used by programers remotely, 
     maybe in each program (for each created singlequbit instance) a full 
     calibration should be performed?
+
+    NOTES
+    -----
+    #SHOULD READOUT BE DONE SEPARATEDLY OF THE COUPLING? making them in the same
+    function is required for the arm/trig way. If instead coupling and readout 
+    are done in different Labber config files, perhaps dividing drive and readout
+    in two methods is more convenient, such that the external user can directly
+    choose the readout technique used (or not used) directly when called
     
     BIBLIOGRAPHY
     (for the Qubit Control scheme by Capacitive Coupling and Virtual Z gating)
@@ -87,10 +83,8 @@ class SingleSuperconductingQubitExperiment:
     """
     
     
-    def __init__(self, drag=True, readout_modality='Tomography', simulation=False, dragz=False, dynamical=False):
-        self.supportedReadoutModes = ['Tomography', 'Disperssive']
-        assert (readout_modality in self.supported_readouts) ,\
-            "Invalid readout modality. Supported : "+str(self.supportedReadoutModes)
+    def __init__(self, drag=True, simulation=False, dragz=False, dynamical=False):
+
         self.drag = drag
         self.simulation = simulation
         
@@ -104,7 +98,7 @@ class SingleSuperconductingQubitExperiment:
         if (drag):
             self.dragBeta = self._calibrateDragBeta()
         
-    def executeRotation(self,wishedAlpha,wishedBeta):
+    def driveQubitTo(self, wishedAlpha, wishedBeta, initialAlpha=0, initialBeta=0):
         """Given a desired final state vector, in three steps, this method
         realizes the physical singlequbit rotation using the virtual Z gate
         strategy that follows: 
@@ -149,7 +143,7 @@ class SingleSuperconductingQubitExperiment:
         # the ground state
         ## while(timer no acabe):
             ## timer get time
-        initialState = State(alpha=0,beta=0)
+        initialState = State(initialAlpha, initialBeta)
         finalState = State(alpha=wishedAlpha, beta=wishedBeta) 
         
         atOnceRotation = self._getRotationMatrix(initialState, finalState)
@@ -160,14 +154,8 @@ class SingleSuperconductingQubitExperiment:
         
         measurementOutput = self.executeExperiment(pulseSeq)
 
-        # iniciar timer
+        # initialize timer
         return measurementOutput
-    
-    # si hay varias posibles readouts, alo dispersive readout, or noseke measuring
-    # etc, lo mejor es hacer esto en dos partes: un metodo que haga todo hasta lo de
-    # triggerear los driving devices, y otros metodos que particualrizen el readout
-    # asi luego externamente harias:
-    # qubit.executeRotation ; qubit.dispersive readout
     
     def executeUnitaryOperation(self,operation):
         """It is the same method as executeRotation, but here one can directly
@@ -193,12 +181,13 @@ class SingleSuperconductingQubitExperiment:
         
        # self.executeIQLOdriving(pulseSeq) # if instead arming of log channels is not necessary this should be done modularly
         
-       # measurementOutput = self.executeReadout() que iria en otro metodo
+       # measurementOutput = self.executeReadout() 
         
         return measurementOutput
     
    
     def executeExperiment(self, pulseSeq):
+        # Nota: en obras...
         #cuando ejecutas el exe del measurement, los dispositivos ya deben estar
         # de antemano en el Instrument server??? Aka, la comunicacion con los devices 
         # puede que si que sea necesaria hacerla por codigo
@@ -356,7 +345,6 @@ class SingleSuperconductingQubitExperiment:
         #(solut[1],solut[2],solut[3])=(solut[1]/norm,solut[2]/norm,solut[3]/norm)
         return Rnt(solut[0],solut[1],solut[2],solut[3])
         
-   # def _logicalCompilationHZbasis(self,unitaryOperation):
             
     def _logicalCompilationToXpi_2Z(self,unitary):
         """Given an input unitary transormation expressed as a matrix in the 
@@ -471,7 +459,7 @@ class SingleSuperconductingQubitExperiment:
                 The frequency that will be ordered to the local oscillator
         
         """
-        
+        # en obras....
         # definir V0 necesaria, sigma necesaria y buffer between pulses necesaria!
         T_pi_2 = # NEED TO GET THE ADEQUATE PULSE LENGTH FOR A PI/2 PULSE EXPERIMTLY
         bufferBetweenPulses = # NEED THIS AS WELL!
@@ -522,7 +510,7 @@ class SingleSuperconductingQubitExperiment:
             else:
                 Qpulses.append(0.0) 
                 # si Q channel es full ceros para evitar errores podria
-                # haerse que simple,mente no se outputease nada a ese channel
+                # haerse que simplemente no se outputease nada a ese channel
         # DEPHASING para Virtual Z! alzu sartun AWGren parametrotzat edo 
         # I eta Qe malieu biher dozuz?
         return {'I':Ipulses, 'Q':Qpulses, 't_LO':timeLo, 't_AWG':timeAWG, 'wLO':wLO}

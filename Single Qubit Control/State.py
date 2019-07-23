@@ -1,5 +1,5 @@
 # Author: Xabier Oyanguren Asua <oiangu9@gmail.com>
-#TODOOOO! Introduce subclassing to implement mixed state manipulation
+#TODO Introduce subclassing to implement mixed state manipulation
 
 import numpy as np
 import scipy.optimize as opt
@@ -49,7 +49,7 @@ class PureState:
     """
     
     def __init__(self,alpha, beta):
-        assert (np.absolute(alpha)**2 + np.absoute(beta)**2 ==1), "WaveVector must be Normalized"
+        assert (np.absolute(alpha)**2 + np.absolute(beta)**2 ==1), "WaveVector must be Normalized"
             
         self._amplitudes = np.array([[alpha],[beta]])
         self._density_matrix = np.dot(self._amplitudes,
