@@ -9,8 +9,8 @@ Edit > Perferences > Folders, then the path in "Local drivers" is what you are
 looking for.
 
 
-FUNCTIONALITIES
---------------
+FUNCTIONALITIES AND PURPOSE
+--------------------------
 This driver pack is intended to give a Superconducting qubit engineer the
 ability to generate in a python Script a customized set of I,Q pulses
 for AWGs, in the form of numpy arrays, which, using the pyhton class attached, may 
