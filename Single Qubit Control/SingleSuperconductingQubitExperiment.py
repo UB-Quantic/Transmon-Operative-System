@@ -5,6 +5,8 @@ from State import State
 from HZbasis import HZbasis
 import scipy.optimize as opt
 import Labber as Labber
+import os as os
+from SingleQubit_Control_Externaly_Importable_Pulse_Seq import PulseSequencetoTxtConversor
 
 class SingleSuperconductingQubitExperiment:
     """ An object that façades the translation of generic algorithmic orders
@@ -192,13 +194,31 @@ class SingleSuperconductingQubitExperiment:
         # de antemano en el Instrument server??? Aka, la comunicacion con los devices 
         # puede que si que sea necesaria hacerla por codigo
         # que es master channel?!
+        
+        # The txt file with the array data correctly formatted is generated
+        #  first in the ad hoc signal generator's driver file
+        # With this purpose, we first generae the dictionary with the correct
+        #  layout for the class PulseSequenceToTxtConversor
+        pulseSeq['Q1'] = pulseSeq['Q']
+        pulseSeq['I1'] = pulseSeq['I']
+        pulseSeq['SampleRate'] = self.deviceSpecs['AWG_rateSample']
+        pulseSeq['OutputNumber'] = 1
+        converter = PulseSequencetoTxtConversor()
+        converter.convertDicArraysToTxt(pulseSeq)
+        
+        # Next the predefined Labber configurations generated ad hoc can be 
+        # already executed
         Labber.ScriptTools.setExePath('C:\Program Files (x86)\Labber\Program')
         scriptPath = os.path.dirname(os.path.abspath(__file__))
         IQLOdriving = ScriptTools.MeasurementObject(os.path.join(scriptPath,\
                                                           'PulseSender.hdf5'))
+        IQLOdriving.updateValue('LO w', pulseSeq['w_LO'])
         readout = ScriptTools.MeasurementObject(os.path.join(scriptPath,\
                                         str(self.readout_modality)+'.hdf5'))
-        IQLOdriving.updateValue('',)
+        (x,y) = IQLOdriving.performMeasurement()
+        (x,y) = readout.performMeasurement()
+        
+        return (x,y)
         
     
 #    def executeExperiment(self,pulseSeq):
@@ -480,9 +500,9 @@ class SingleSuperconductingQubitExperiment:
             return -V0*(T-t)*np.exp(-(T-t)**2/(2*sigma**2))/(sigma**2*(np.exp(-T**2/(2*sigma**2))-1))
         
         timeLO = np.linalg(0, 2*T_pi_2 + bufferBetweenPulses + 2*T_pi_2, 
-                         self.machineSpecs['LO_rateSample'])
+                         self.deviceSpecs['LO_rateSample'])
         timeAWG = np.linalg(0, 2*T_pi_2 + bufferBetweenPulses + 2*T_pi_2, 
-                         self.machineSpecs['AWG_rateSample'])
+                         self.deviceSpecs['AWG_rateSample'])
         
         # I pulses drive rotations in X while Q pulses in Y
         # in our case, as we only need X pi/2 pulses, if drag is off, Q channel

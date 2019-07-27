@@ -8,6 +8,16 @@ but anyhow, the easy way to know it is, in Labber Instrument Server click:
 Edit > Perferences > Folders, then the path in "Local drivers" is what you are
 looking for.
 
+After that, in order to be able to import the PulseSequencetoTxtConversor class
+to your scripts wherever these scripts are located, open your pyhton interpreter
+with working directory: the path described in the earlier paragraph, then execute the
+script "AddPackageToPath.py". This script just adds the package to path with these
+commands:
+
+	import os, sys
+	CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+	sys.path.append(os.path.dirname(CURRENT_DIR))
+
 
 FUNCTIONALITIES AND PURPOSE
 --------------------------

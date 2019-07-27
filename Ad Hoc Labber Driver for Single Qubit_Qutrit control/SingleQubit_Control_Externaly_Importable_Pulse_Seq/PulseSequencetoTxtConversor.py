@@ -24,10 +24,10 @@ class PulseSequencetoTxtConversor:
     > by default the parameters are given the following values:
       - outPutFileName='Pulses_for_the_Signal_Generator'
       - outPutPath=the path where this script is, which should be following the
-      readme: 'C:\\Users\UserName\Labber\Drivers\SingleQubit_Control_Externaly_Importable_Pulse_Seq'
+      readme: "C:\\Users\\UserName\\Labber\\Drivers\\SingleQubit_Control_Externaly_Importable_Pulse_Seq"
       
     such that the generated file will be:
-      - 'C:\\Users\UserName\Labber\Drivers\SingleQubit_Control_Externaly_Importable_Pulse_Seq\Pulses_for_the_Signal_Generator.txt'
+      - "C:\\Users\\UserName\\Labber\\Drivers\\SingleQubit_Control_Externaly_Importable_Pulse_Seq\\Pulses_for_the_Signal_Generator.txt"
       
     """
     def __init__(self, outPutFileName='Pulses_for_the_Signal_Generator',\
