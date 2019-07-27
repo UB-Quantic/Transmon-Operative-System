@@ -79,8 +79,8 @@ class PulseSequencetoTxtConversor:
         dataFile.write("SampleRate "+str(dictPulseSeq['SampleRate'])+'\n')
         dataFile.write("OutputNumber "+str(dictPulseSeq['OutputNumber'])+'\n')
         for i in range(0,int(dictPulseSeq['OutputNumber'])):
-            dataFile.write('I'+str(i+1)+' '+str(dictPulseSeq['I'+str(i+1)])[1:-1].replace('\n','')+'\n')
-            dataFile.write('Q'+str(i+1)+' '+str(dictPulseSeq['Q'+str(i+1)])[1:-1].replace('\n','')+'\n')
+            dataFile.write('I'+str(i+1)+' '+str(dictPulseSeq['I'+str(i+1)])[1:-1].replace('\n','').replace(',','')+'\n')
+            dataFile.write('Q'+str(i+1)+' '+str(dictPulseSeq['Q'+str(i+1)])[1:-1].replace('\n','').replace(',','')+'\n')
         dataFile.close()
         
         

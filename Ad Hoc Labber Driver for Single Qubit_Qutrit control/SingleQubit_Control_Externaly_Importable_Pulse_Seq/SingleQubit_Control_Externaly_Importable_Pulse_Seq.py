@@ -3,6 +3,7 @@
 
 import InstrumentDriver
 import numpy as np
+import os
 
 
 class Driver(InstrumentDriver.InstrumentWorker):
@@ -21,6 +22,8 @@ class Driver(InstrumentDriver.InstrumentWorker):
         self.lGate = [np.array([], dtype=float) for n in range(nTrace)]
         self.vTime = np.array([], dtype=float)
         self.vReadout = np.array([], dtype=float)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        self.setValue('Full Path of txt file with pulse data',current_dir+'Pulses_for_the_Signal_Generator.txt')
 
 
     def performSetValue(self, quant, value, sweepRate=0.0, options={}):

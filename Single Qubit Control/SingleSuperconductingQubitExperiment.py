@@ -213,10 +213,9 @@ class SingleSuperconductingQubitExperiment:
         IQLOdriving = ScriptTools.MeasurementObject(os.path.join(scriptPath,\
                                                           'PulseSender.hdf5'))
         IQLOdriving.updateValue('LO w', pulseSeq['w_LO'])
-        readout = ScriptTools.MeasurementObject(os.path.join(scriptPath,\
-                                        str(self.readout_modality)+'.hdf5'))
+       
         (x,y) = IQLOdriving.performMeasurement()
-        (x,y) = readout.performMeasurement()
+        
         
         return (x,y)
         
