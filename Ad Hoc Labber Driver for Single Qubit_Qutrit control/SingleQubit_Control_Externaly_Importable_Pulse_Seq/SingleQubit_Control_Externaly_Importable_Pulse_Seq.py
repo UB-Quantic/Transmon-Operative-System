@@ -22,9 +22,6 @@ class Driver(InstrumentDriver.InstrumentWorker):
         self.lGate = [np.array([], dtype=float) for n in range(nTrace)]
         self.vTime = np.array([], dtype=float)
         self.vReadout = np.array([], dtype=float)
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.setValue('Full Path of txt file with pulse data',current_dir+'Pulses_for_the_Signal_Generator.txt')
-
 
     def performSetValue(self, quant, value, sweepRate=0.0, options={}):
         """Perform the Set Value instrument operation. This function should
@@ -43,7 +40,7 @@ class Driver(InstrumentDriver.InstrumentWorker):
                 self.calculateWaveform()
             # get correct data and return as trace dict
             vData = self.getWaveformFromMemory(quant)
-            dt = 1/self.getValue('Sample rate') 
+            dt = 1/self.getValue('Sample rate')
             value = quant.getTraceDict(vData, dt=dt)
         else:
             # for all other cases, do nothing
@@ -354,8 +351,16 @@ class Driver(InstrumentDriver.InstrumentWorker):
 
          # extract array info from the external .txt if required and save it in a dictionary
         if (self.getValue('Import pulse sequence from external file')):
-            self.dExternalFilePulses = self.extractDataFromFile(\
+            try:
+                self.dExternalFilePulses = self.extractDataFromFile(\
                         self.getValue('Full Path of txt file with pulse data'))
+            except:
+                # make sure the direction of the txt file is correct
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                self.setValue('Full Path of txt file with pulse data',current_dir+'\\Pulses_for_the_Signal_Generator.txt')
+                self.dExternalFilePulses = self.extractDataFromFile(\
+                        self.getValue('Full Path of txt file with pulse data'))
+                
             # resolve conflicts between txt array info and driver config
             self.setValue('Sample rate',self.dExternalFilePulses['SampleRate'])
             if((self.getValueIndex('Number of outputs')+1) < self.dExternalFilePulses['OutputNumber']):
