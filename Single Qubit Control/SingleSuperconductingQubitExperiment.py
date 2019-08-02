@@ -100,7 +100,7 @@ class SingleSuperconductingQubitExperiment:
         if (drag):
             self.dragBeta = self._calibrateDragBeta()
         
-    def driveQubitTo(self, wishedAlpha, wishedBeta, initialAlpha=0, initialBeta=0):
+    def driveQubitTo(self, wishedAlpha, wishedBeta, initialAlpha=1, initialBeta=0):
         """Given a desired final state vector, in three steps, this method
         realizes the physical singlequbit rotation using the virtual Z gate
         strategy that follows: 
