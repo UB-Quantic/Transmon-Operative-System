@@ -58,19 +58,21 @@ Qpulses=[]
 # llenamos los vectores de puntos de los pulsos
 for t in timeAWG:
     if t < 2*T:
-        Ipulses.append(GaussianEnvelope(t,V0,T)*np.sin(wssb*t)) # first pulse (I channel)
+        Ipulses.append(GaussianEnvelope(t,V0,T)*np.sin(wssb*t) + beta*DerivativeGaussianEnvelope(t,V0,T)*np.sin(wssb*t+np.pi/2)) # first pulse (I channel)
     elif t < 2*T + bufferBetweenPulses:
         Ipulses.append(0.0) # buffer in between
     else:
-        Ipulses.append(GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wssb*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)) # second pulse (I channel)
+        Ipulses.append(GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wssb*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)\
+                       +beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wssb*(t-(2*T + bufferBetweenPulses))+np.pi/2+phase_2_pulse)) # second pulse (I channel)
     
     if (drag==True): # depending of wheter we want drag or not
         if t < 2*T:
-            Qpulses.append(beta*DerivativeGaussianEnvelope(t,V0,T)*np.cos(wssb*t)) # first pulse (Q channel)
+            Qpulses.append(-GaussianEnvelope(t,V0,T)*np.cos(wssb*t) -beta*DerivativeGaussianEnvelope(t,V0,T)*np.cos(wssb*t+np.pi/2)) # first pulse (Q channel)
         elif t < 2*T + bufferBetweenPulses:
             Qpulses.append(0.0) # buffer
         else:
-            Qpulses.append(beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wssb*t+phase_2_pulse)) # second pulse (Q channel)
+            Qpulses.append(-GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wssb*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)\
+                           -beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wssb*(t-(2*T + bufferBetweenPulses))+phase_2_pulse+np.pi/2)) # second pulse (Q channel)
     else:
         Qpulses.append(0.0) 
 
