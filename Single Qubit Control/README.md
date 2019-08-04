@@ -1,4 +1,5 @@
 # SingleSuperconductingQubitExperiment CLASS
+---------------------------------------------------------------
 
 This is a class that façades the translation of generic algorithmic orders
 to the actual analogical transmon like superconducting qubit implementation.
@@ -140,8 +141,10 @@ Xabier Oyanguren Asua
 
 E-mail: <oiangu9@gmail.com>
 
-# State side-class
+---------------------------------------------------------
 
+# State side-class
+-----------------
 This is an object to sustain the different representations of an state vector
 in the two dimensional Hilbert space (for pure states):
     
