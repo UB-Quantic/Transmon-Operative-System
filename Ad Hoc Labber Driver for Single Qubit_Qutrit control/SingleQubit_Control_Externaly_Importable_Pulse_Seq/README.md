@@ -151,22 +151,26 @@ pulse sequence.
 
  - SingleQubit_Control_Externaly_Importable_Pulse_Seq.ini
 
-	The above pair are the two driver files used by Labber
+	    The above pair are the two driver files used by Labber
 
  - Pulses_for_the_Signal_Generator.txt
-	This is the default file from where the pulses will be extracted. By default the package
-	includes in this file an example sequence.
+	
+        This is the default file from where the pulses will be extracted. By default the package
+	    includes in this file an example sequence.
 
  - PulseSequencetoTxtConversor.py
-	This is the conversor offered to authomatize the generation of a correct txt out of a
-	python dictionoray with the desired numpy array pulses
+	    
+        This is the conversor offered to authomatize the generation of a correct txt out of a
+	    python dictionoray with the desired numpy array pulses
 
  - exampleScript.py
-	This is an example script that generates the I,Q pulses for a sequence of two X(theta) rotation
-	pulses. It assumes that the package is correctly installed in the cusotm driver path.
+	    
+        This is an example script that generates the I,Q pulses for a sequence of two X(theta) rotation
+	    pulses. It assumes that the package is correctly installed in the cusotm driver path.
 
  - AddPackageToPath.py
-	This is a simple script that, adds the path where the script is to your Python path for
-	the running interpreter.
+	    
+        This is a simple script that, adds the path where the script is to your Python path for
+	    the running interpreter.
 
  - This README.md
