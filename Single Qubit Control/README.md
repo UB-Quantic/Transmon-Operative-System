@@ -31,6 +31,7 @@ and read the headers of each method.
 ## Main Methods
 
 ### driveQubitTo(self, wishedAlpha, wishedBeta, initialAlpha=1, initialBeta=0)
+-----------------------------------------------------------------
 Given a desired final state vector, in three steps, this method
 realizes the physical single qubit rotation using the virtual Z gate
 strategy that follows: 
@@ -58,30 +59,31 @@ c) physical execution of the experiment
  - The readout signal is anlayzed and the method outputs the relevant
  information
  
-     Arguments
-     ---------
+     #### Arguments
+     
      wishedAlpha : double (Complex)
          The projection on the |0> basis state we wish the qubit to drive to
      wishedBeta : double (Complex)
          The projection on the |1> basis state we wish the state to drive to
     
-     Outputs
-     -------
+     #### Outputs
+     
      The measurement's result
  
 ### executeUnitaryOperation(self,operation)
+-------------------------------------------
 It is the same method as executeRotation, but here one can directly
 input a desired operation on the initial ground state |0> of the qubit,
 instead of having to give in the output state.
 
-    Argument
-    -------
+    #### Argument
+
     operation : numpyArray, shape(2,2) Complex
         The unitary operation one wishes to apply to the qubit, written as
         a matrix in the computational basis
     
-    Outputs
-    ------
+    #### Outputs
+    
     The measurement's result 
 
 ## Requirements for Correct funciton
@@ -105,7 +107,7 @@ as its defining script, for the reasons exposed in the introduction:
 - State.py
     This is a small side-class used by the main one, it is exposed bellow. 
 
-##TODOs
+## TODOs
 
 In the header of the class' .py file there is a list of genral TODO-s in order
 to expand the usage  of the class.
@@ -135,7 +137,8 @@ Information, Cambridge University Press, 2001
 ## Contact
 
 Xabier Oyanguren Asua 
-e-mail: <oiangu9@gmail.com>
+
+E-mail: <oiangu9@gmail.com>
 
 # State side-class
 
@@ -152,8 +155,7 @@ in the form |State> = a |0> + b |1> with a,b Complex scalars;
     thus, the point in the sphere is:
         (u,v,w) = (sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta)) in R3
     
-    Parameters
-    ---------
+    #### Parameters
     alpha : Complex double
         The projection of the state on |0>
     beta : Complex double
@@ -161,8 +163,8 @@ in the form |State> = a |0> + b |1> with a,b Complex scalars;
     
     Note the assertion that |alpha|**2 + |beta|**2 = 1
     
-    Attributes
-    ---------
+    #### Attributes
+    
     _amplitudes : NumpyArray, shape(2,1) Complex
         stores the stateVector in the Computational basis
     _denisty_matrix : Numpyarray, shape(2,2) Complex
@@ -173,8 +175,8 @@ in the form |State> = a |0> + b |1> with a,b Complex scalars;
         It is obtained in the initialization using the denisty matrix as
         suggested in the first reference
         
-    Reference
-    --------
+    #### Reference
+    
     https://en.wikipedia.org/wiki/Bloch_sphere
     
     Michael A. Nielsen , Isaac L. Chuang, Quantum Computation and Quantum 
