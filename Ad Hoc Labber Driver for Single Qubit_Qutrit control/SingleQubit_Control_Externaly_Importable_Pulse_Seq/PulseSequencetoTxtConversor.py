@@ -3,9 +3,9 @@ import numpy as np
 import os as os
 
 class PulseSequencetoTxtConversor:
-    """This class, implementing the Soliton design pattern is specialy designed
-    to generate txt files with the precise layout for the 'SingleQubit_Control_
-    Externaly_Importable_Pulse_Seq' Labber driver.
+    """This class is specialy designed to generate txt files with the precise 
+    layout for the 'SingleQubit_Control_Externaly_Importable_Pulse_Seq' Labber
+    driver.
     
     The main idea behind it is to give a Superconducting qubit engineer the
     ability to generate in a python Script a customized set of I,Q pulses

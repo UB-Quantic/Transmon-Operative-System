@@ -48,23 +48,26 @@ Qpulses=[]
 # we fill the pulse "arrays" with voltage amplitudes
 for t in timeAWG:
     if t < 2*T:
-        Ipulses.append(GaussianEnvelope(t,V0,T)*np.sin(wawg*t) + beta*DerivativeGaussianEnvelope(t,V0,T)*np.sin(wawg*t+np.pi/2)) # first pulse (I channel)
+        Ipulses.append(GaussianEnvelope(t,V0,T)*np.sin(wawg*t)) # first pulse (I channel)
+        Qpulses.append(-GaussianEnvelope(t,V0,T)*np.cos(wawg*t)) # first pulse (Q channel)
+
     elif t < 2*T + bufferBetweenPulses:
         Ipulses.append(0.0) # buffer in between
+        Qpulses.append(0.0)
     else:
-        Ipulses.append(GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wawg*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)\
-                       +beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wawg*(t-(2*T + bufferBetweenPulses))+np.pi/2+phase_2_pulse)) # second pulse (I channel)
-    
-    if (drag==True): # depending of wheter we want drag or not
+        Ipulses.append(GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wawg*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)) # second pulse (I channel)
+        Qpulses.append(-GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wawg*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)) # second pulse (Q channel)
+   
+if(drag==True):
+    for i,t in enumerate(timeAWG):
         if t < 2*T:
-            Qpulses.append(-GaussianEnvelope(t,V0,T)*np.cos(wawg*t) -beta*DerivativeGaussianEnvelope(t,V0,T)*np.cos(wawg*t+np.pi/2)) # first pulse (Q channel)
-        elif t < 2*T + bufferBetweenPulses:
-            Qpulses.append(0.0) # buffer
-        else:
-            Qpulses.append(-GaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wawg*(t-(2*T + bufferBetweenPulses))+phase_2_pulse)\
-                           -beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wawg*(t-(2*T + bufferBetweenPulses))+phase_2_pulse+np.pi/2)) # second pulse (Q channel)
-    else:
-        Qpulses.append(0.0) 
+            Ipulses[i]+= beta*DerivativeGaussianEnvelope(t,V0,T)*np.sin(wawg*t+np.pi/2) # first pulse (I channel)
+            Qpulses[i]+= -beta*DerivativeGaussianEnvelope(t,V0,T)*np.cos(wawg*t+np.pi/2) # first pulse (Q channel)
+
+        elif t > 2*T + bufferBetweenPulses:
+            Ipulses[i]+= beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.sin(wawg*(t-(2*T + bufferBetweenPulses))+np.pi/2+phase_2_pulse) # second pulse (I channel)
+            Qpulses[i]+= -beta*DerivativeGaussianEnvelope(t-(2*T + bufferBetweenPulses),V0,T)*np.cos(wawg*(t-(2*T + bufferBetweenPulses))+phase_2_pulse+np.pi/2) # second pulse (Q channel)
+       
 
 # plot the designed pulses to see if they are the desired ones
 plt.plot(timeAWG, Ipulses)

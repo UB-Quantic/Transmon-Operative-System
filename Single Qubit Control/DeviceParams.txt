@@ -1,5 +1,2 @@
-LO tal
-LO_rateSample 1e9
-AWG tal
-AWG_rateSample
-AWGssb
+AWG_SampleRate 1e9
+wSSB 940E6
