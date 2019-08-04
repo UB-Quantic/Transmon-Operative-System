@@ -1,4 +1,4 @@
-INSTALLATION
+# INSTALLATION
 ------------
 If you wish to use this driver pack in Labber, just copy the folder named 
 "SingleQubit_Control_Externaly_Importable_Pulse_Seq" containing the files
@@ -19,7 +19,7 @@ commands:
 	sys.path.append(os.path.dirname(CURRENT_DIR))
 
 
-FUNCTIONALITIES AND PURPOSE
+# FUNCTIONALITIES AND PURPOSE
 --------------------------
 This driver pack is intended to give a Superconducting qubit engineer the
 ability to generate in a python Script a customized set of I,Q pulses
@@ -66,9 +66,9 @@ Note that these three options allow all the possible combinations of pulse seque
    the option to superimpose external and driver given pulses. Options are unlimited!
 
 
-HOW TO IMPORT CORRECTLY EXTERNAL I,Q PULSES
+# HOW TO IMPORT CORRECTLY EXTERNAL I,Q PULSES
 -------------------------------------------
->TXT FILE
+## TXT FILE
   
 The drivers, when asked to import pulses from an external file, expect the pulse
 information to be written in a txt file with the following exact layout:
@@ -102,7 +102,7 @@ forcely changed.
 Note that SampleRate must concide with the sample rate introduced in the
 driver configuration. If not, the sampleRate in the txt will be forced.
 
->UTILITY TO CONVERT NUMPY ARRAYS INTO THE TXT
+## UTILITY TO CONVERT NUMPY ARRAYS INTO THE TXT
 
 In order not to worry about the layout of the txt file, the package includes a python class
 called PulseSequencetoTxtConversor that allows direct generation of a correctly formatted txt
@@ -140,7 +140,7 @@ in the installation section. Next the drivers will be able to generate correctly
 pulse sequence.
 
 
-FILES IN THE PACKAGE
+# FILES IN THE PACKAGE
 -------------------
  > SingleQubit_Control_Externaly_Importable_Pulse_Seq.py
 
@@ -161,7 +161,7 @@ FILES IN THE PACKAGE
  > This README.txt
 
 
-AUTHOR and CONTACT
+# AUTHOR and CONTACT
 ------------------
 
 Xabier Oyanguren Asua
