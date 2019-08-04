@@ -80,7 +80,6 @@ Note that these three options allow all the possible combinations of pulse seque
 The drivers, when asked to import pulses from an external file, expect the pulse
 information to be written in a txt file with the following exact layout:
 
-"""
 	SampleRate <double_in_s^-1>
 	OutputNumber <integer>
 	I1 <double_1> <double_2> .... <double_m1>
@@ -91,7 +90,6 @@ information to be written in a txt file with the following exact layout:
 	In <double_1> <double_2> .... <double_mn>
 	Qn <double_1> <double_2> .... <double_mn>
 
-"""
 - where SampleRate is the inverse of the time period per defined
 point in the arrays (ideally this should coincide with the sample
 rate of the arbitrary waveform generator AWG to be used);
