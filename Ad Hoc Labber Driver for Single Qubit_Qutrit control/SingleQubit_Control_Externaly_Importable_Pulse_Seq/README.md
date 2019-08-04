@@ -1,10 +1,10 @@
 # INSTALLATION
 ------------
 If you wish to use this driver pack in Labber, just copy the folder named 
-"SingleQubit_Control_Externaly_Importable_Pulse_Seq" containing the files
-listed in the section "Files in the Package" in the Labber Custom Driver directory.
+"SingleQubit_Control_Externaly_Importable_Pulse_Seq", containing the files
+listed in the section "Files in the Package", in the Labber Custom Driver directory.
 If working on Windows, the path is probably "C:\Users\UserName\Labber\Drivers"
-but anyhow, the easy way to know it is, in Labber Instrument Server click:
+but anyhow, the easy way to know it is: in Labber Instrument Server, click
 Edit > Perferences > Folders, then the path in "Local drivers" is what you are
 looking for.
 
@@ -18,12 +18,19 @@ commands:
 	CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 	sys.path.append(os.path.dirname(CURRENT_DIR))
 
+Note that this addition to path is not permanent, so it should be executed whenever
+one intends to use the class from an external directory.
+If this seems rather complicated, the easy way is always to run your script in the
+same driver folder, so you can directly import tha PulseSequencetoTxtConversor 
+class without worrying about the path stuff. See the example script for an example
+of this way.
 
 # FUNCTIONALITIES AND PURPOSE
 --------------------------
 This driver pack is intended to give a Superconducting qubit engineer the
 ability to generate in a python Script a customized set of I,Q pulses
-for AWGs, in the form of numpy arrays, which, using the pyhton class attached, may 
+for AWGs in the form of numpy arrays and send them correctly to the signal generating
+hardware using Labber. Employing the pyhton class attached, the numpy arrays may 
 be translated to a txt file that will then be interpreted by the Labber Signal
 Generating driver, "SingleQubit_Control_Externaly_Importable_Pulse_Seq", which
 using the Labber Signal Communication protocol will ultimately send the custom pulse
@@ -34,8 +41,8 @@ designed by numpy scripting to the particular AWG used in the experiments.
 
 The easy way of doing this would have probably been to simply make a custom Signal
 Generator Labber Driver ad hoc, but what we have done here goes beyond that.
-It has been used the SingleQubit_Signal_Generator driver incorporated by default 
-in Labber as a template and added the following functionalities to it:
+The default SingleQubit_Signal_Generator driver of Labber has been used as a template 
+to build up the functionality, so it is an add-on to the default signal generator.
 
 This modified version of SingleQubit_Signal_Generator allows to continue designing
 sequences of pulses with the given options in the configuration window but with the
@@ -43,25 +50,25 @@ very relevant option to intersperse numpy script designed arbitrary waveforms am
 
 In particular we have developed the following options:
 
-> One may continue using this drivers as the good old SingleQubit_Signal_Generator by
+- One may continue using this drivers as the good old SingleQubit_Signal_Generator by
 unchecking the "Import pulse sequence from external file" option in the driver config window.
 
-> If you instead wish to import pulses externaly, then there are three options:
+- If you instead wish to import pulses externaly, then there are three options:
 
- - Ignore the pulses outputed by the SingleQubit_Signal_Generator options in the config 
- window and just output the array info imported externally. For that check the box in the
+  > Ignore the pulses outputed by the SingleQubit_Signal_Generator options in the config 
+ window and just output the array info imported externally. For that, check the box in the
  window that says "Ignore the pulses designed by the driver and output the ones of the .txt"
 
- - Mix the pulses designed with the SingleQubit_Signal_Generator like interface with the
+  > Mix the pulses designed with the SingleQubit_Signal_Generator like interface with the
  imported ones. Here you might intersperse the imported pulses rather after the pre-pulses
  and before the rest of pulses, or after the pre-pulses and after the main pulses but before
- the readout and tomography pulses. 
+ the readout and tomography pulses.
 
 Note that these three options allow all the possible combinations of pulse sequences:
- 	- just driver pre-config pulses (pre-pulses, main pulses and readout, tomography pulses)
-	- just imported pulses
-	- (pre-pulses) + imported ones + (main pulses) + (readout,tomography pulses)
-   where by parenthesis we mean that they can be added or not at wish.
+ 	> Just driver pre-config pulses (pre-pulses, main pulses and readout/tomography pulses)
+	> Just imported pulses
+	> (Pre-pulses) + imported ones + (main pulses) + (readout,tomography pulses)
+   	where by parenthesis we mean that they can be added or not at wish.
       Note that as pre-pulses can be chosen to overlap with the rest of the pulses, we even allow
    the option to superimpose external and driver given pulses. Options are unlimited!
 
@@ -74,15 +81,15 @@ The drivers, when asked to import pulses from an external file, expect the pulse
 information to be written in a txt file with the following exact layout:
 
 """
-SampleRate <double_in_s^-1>
-OutputNumber <integer>
-I1 <double_1> <double_2> .... <double_m1>
-Q1 <double_1> <double_2> .... <double_m1>
-I2 <double_1> <double_2> .... <double_m2>
-Q2 <double_1> <double_2> .... <double_m2>
-    ...
-In <double_1> <double_2> .... <double_mn>
-Qn <double_1> <double_2> .... <double_mn>
+	SampleRate <double_in_s^-1>
+	OutputNumber <integer>
+	I1 <double_1> <double_2> .... <double_m1>
+	Q1 <double_1> <double_2> .... <double_m1>
+	I2 <double_1> <double_2> .... <double_m2>
+	Q2 <double_1> <double_2> .... <double_m2>
+    		...
+	In <double_1> <double_2> .... <double_mn>
+	Qn <double_1> <double_2> .... <double_mn>
 
 """
 - where SampleRate is the inverse of the time period per defined
@@ -142,31 +149,26 @@ pulse sequence.
 
 # FILES IN THE PACKAGE
 -------------------
- > SingleQubit_Control_Externaly_Importable_Pulse_Seq.py
+ - SingleQubit_Control_Externaly_Importable_Pulse_Seq.py
 
- > SingleQubit_Control_Externaly_Importable_Pulse_Seq.ini
+ - SingleQubit_Control_Externaly_Importable_Pulse_Seq.ini
 
-	These are the two driver files used by Labber
+	The above pair are the two driver files used by Labber
 
- > Pulses_for_the_Signal_Generator.txt
-
+ - Pulses_for_the_Signal_Generator.txt
 	This is the default file from where the pulses will be extracted. By default the package
 	includes in this file an example sequence.
 
- > PulseSequencetoTxtConversor.py
-	
+ - PulseSequencetoTxtConversor.py
 	This is the conversor offered to authomatize the generation of a correct txt out of a
 	python dictionoray with the desired numpy array pulses
 
- > This README.txt
+ - exampleScript.py
+	This is an example script that generates the I,Q pulses for a sequence of two X(theta) rotation
+	pulses. It assumes that the package is correctly installed in the cusotm driver path.
 
+ - AddPackageToPath.py
+	This is a simple script that, adds the path where the script is to your Python path for
+	the running interpreter.
 
-# AUTHOR and CONTACT
-------------------
-
-Xabier Oyanguren Asua
-
-oiangu9@gmail.com
-
-
-Created in 26/07/2019
+ - This README.md
