@@ -58,12 +58,13 @@ c) physical execution of the experiment
  - Logging channels are armed as well to allow inmediate readout
  - The trigger is sent and the interaction with the physical qubit begins
  - The readout signal is anlayzed and the method outputs the relevant
- information
+ information.
  
      #### Arguments
      
      wishedAlpha : double (Complex)
          The projection on the |0> basis state we wish the qubit to drive to
+     
      wishedBeta : double (Complex)
          The projection on the |1> basis state we wish the state to drive to
     
@@ -170,9 +171,11 @@ in the form |State> = a |0> + b |1> with a,b Complex scalars;
     
     _amplitudes : NumpyArray, shape(2,1) Complex
         stores the stateVector in the Computational basis
+        
     _denisty_matrix : Numpyarray, shape(2,2) Complex
         stores the density matrix of the system in the computational basis. It
         is obtained in the initialization by denisty_matrix = |State> <State|
+        
     _blochVector : NumpyArray, shape(1,3) Real
         Unit vector in the surface of a R3 sphere representing the State.
         It is obtained in the initialization using the denisty matrix as
