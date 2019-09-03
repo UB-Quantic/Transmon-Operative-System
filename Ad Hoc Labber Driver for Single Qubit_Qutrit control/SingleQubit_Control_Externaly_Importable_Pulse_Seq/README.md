@@ -53,9 +53,9 @@ In particular we have developed the following options:
 - One may continue using this drivers as the good old SingleQubit_Signal_Generator by
 unchecking the "Import pulse sequence from external file" option in the driver config window.
 
-- If you instead wish to import pulses externaly, then there are three options:
+- If you instead wish to import pulses externally, then there are three options:
 
-  > Ignore the pulses outputed by the SingleQubit_Signal_Generator options in the config 
+  > Ignore the pulses outputted by the SingleQubit_Signal_Generator options in the config 
  window and just output the array info imported externally. For that, check the box in the
  window that says "Ignore the pulses designed by the driver and output the ones of the .txt"
 
@@ -104,7 +104,7 @@ the number of output IQ channels. If it is larger than the number of
 outputs designed in the configuration window, then the latter will be
 forcely changed.
 
-Note that SampleRate must concide with the sample rate introduced in the
+Note that SampleRate must coincide with the sample rate introduced in the
 driver configuration. If not, the sampleRate in the txt will be forced.
 
 ## UTILITY TO CONVERT NUMPY ARRAYS INTO THE TXT
@@ -117,12 +117,12 @@ Example of use:
 
 Given d is a dictonary with the following entries:
 
-	'SampleRate': double
-        'OutputNumber': integer
-        'I1': numpyArray shape(m1,)
-        'Q1': numpyArray shape(m1,)
-            ....
-        'Qn': numpyArray shape(mn,)
+	 'SampleRate': double
+    'OutputNumber': integer
+    'I1': numpyArray shape(m1,)
+    'Q1': numpyArray shape(m1,)
+        ....
+    'Qn': numpyArray shape(mn,)
 
 - where SampleRate is the inverse of the time period per defined
 point in the arrays (ideally this should coincide with the sample
@@ -138,7 +138,7 @@ Then:
 	conversor = PulseSequencetoTxtConversor()
 	conversor.convertDicArraysToTxt( d )
 
-should succesfully generate the necessary txt in the path where the pyhton
+should successfully generate the necessary txt in the path where the pyhton
 script of class PulseSequencetoTxtConversor is located. This txt must be placed
 in the "SingleQubit_Control_Externaly_Importable_Pulse_Seq" driver directory as explained
 in the installation section. Next the drivers will be able to generate correctly the desired
@@ -160,13 +160,13 @@ pulse sequence.
 
  - PulseSequencetoTxtConversor.py
 	    
-        This is the conversor offered to authomatize the generation of a correct txt out of a
+        This is the convertor offered to automatize the generation of a correct txt out of a
 	    python dictionoray with the desired numpy array pulses
 
  - exampleScript.py
 	    
         This is an example script that generates the I,Q pulses for a sequence of two X(theta) rotation
-	    pulses. It assumes that the package is correctly installed in the cusotm driver path.
+	    pulses. It assumes that the package is correctly installed in the custom driver path.
 
  - AddPackageToPath.py
 	    

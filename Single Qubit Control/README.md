@@ -89,7 +89,7 @@ instead of having to give in the output state.
     
    #### Outputs
     
-    - The measurement's result 
+   The measurement's result 
 
 ## Requirements for Correct function
 
