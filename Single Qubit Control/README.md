@@ -80,16 +80,16 @@ c) physical execution of the experiment
 input a desired operation on the initial ground state |0> of the qubit,
 instead of having to give in the output state.
 
-     #### Argument
+   #### Arguments
 
-     - **operation** : numpyArray, shape(2,2) Complex
+   - **operation** : numpyArray, shape(2,2) Complex
      
-        The unitary operation one wishes to apply to the qubit, written as
-        a matrix in the computational basis
+     The unitary operation one wishes to apply to the qubit, written as
+     a matrix in the computational basis
     
-     #### Outputs
+   #### Outputs
     
-     The measurement's result 
+    - The measurement's result 
 
 ## Requirements for Correct function
 
@@ -158,13 +158,13 @@ in the form **|State> = a |0> + b |1>** with a,b Complex scalars;
       **density_matrix = |State> <State|**
   - Or as a unit vector in the surface of the Bloch Sphere: 
   
-    |State> = cos(theta/2) |0> + e^(i*phi)*sin(theta/2) |1>
+        |State> = cos(theta/2) |0> + e^(i*phi)*sin(theta/2) |1>
     
     for theta in (0,pi), phi in (0,2pi)
     
     thus, the point in the sphere is:
     
-        **(u,v,w) = (sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta))** in R3
+        (u,v,w) = (sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta)) in R3
     
     #### Parameters
     - **alpha** : Complex double
